@@ -1,8 +1,10 @@
 ########################################
 # Thomas Lextrait, thomas.lextrait@gmail.com
 ########################################
-CC=g++
+CC=gcc
+CXX=g++
 FLAGS=-c -Wall
+CXXFLAGS=-c -Wall -Wextra -pedantic -Werror
 ########################################
 
 # Make everything
@@ -12,10 +14,10 @@ all: 2048
 new: clean all
 
 2048: 2048.o
-		$(CC) 2048.o -o 2048
+		$(CXX) 2048.o -o 2048
 
 2048.o: 2048.cpp 2048.h
-		$(CC) $(FLAGS) 2048.cpp
+		$(CXX) $(CXXFLAGS) 2048.cpp
 
 ########################################
 # Clean up
