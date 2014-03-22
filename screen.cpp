@@ -16,13 +16,9 @@
 * Screen constructor
 */
 Screen::Screen(){
-  //initialized = false;
-  //destroyed = false;
-  
-  printf("HELLO WORLD");
-
-
-  //initialize();
+  initialized = false;
+  destroyed = false;
+  initialize();
 }
 
 /**
@@ -37,14 +33,7 @@ Screen::~Screen(){
 */
 void Screen::initialize(){
   if(!initialized){
-    printf("HELLO\n");
-    //initscr();  // init the screen with curses
-    printf("1\n");
-    //clear();
-    printf("2\n");
-    noecho();   // don't echo inputs
-    cbreak();
-    printf("5\n");
+    init_curses();
     initialized = true;
   }
 }
@@ -54,7 +43,7 @@ void Screen::initialize(){
 */
 void Screen::destroy(){
   if(!destroyed){
-    endwin();
+    end_curses();
     destroyed = true;
   }
 }
@@ -67,6 +56,9 @@ void Screen::clear(){
   clear();
 }
 
+/**
+* Initialize curses
+*/
 void init_curses(){
   initscr();
   clear();
@@ -75,6 +67,9 @@ void init_curses(){
   getch();
 }
 
+/**
+* Clean up curses
+*/
 void end_curses(){
   endwin();
 }

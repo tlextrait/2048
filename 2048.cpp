@@ -59,13 +59,8 @@ int main(){
   // generate secret number between 1 and 10
   //int iSecret = rand() % 10 + 1;
 
-  // Initialize curses
-  init_curses();
-  end_curses();
-
   Screen* sc;
   sc = new Screen();
-  delete sc;
 
   //Board* b = new Board;
   //b->display();
@@ -74,7 +69,7 @@ int main(){
   //getch();
   //printw("%d\n", CH);
 
-  //delete sc;
+  delete sc;
   
   return 0;
 }
