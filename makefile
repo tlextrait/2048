@@ -14,11 +14,14 @@ all: 2048
 # Make a fresh copy, clean up previous build
 new: clean all
 
-2048: 2048.o
-		$(CXX) 2048.o -o 2048 $(LIBFLAGS)
+2048: 2048.o screen.o
+		$(CXX) 2048.o screen.o -o 2048 $(LIBFLAGS)
 
-2048.o: 2048.cpp 2048.h
-		$(CXX) $(CXXFLAGS) 2048.cpp
+2048.o: 2048.cpp 2048.h screen.h
+		$(CXX) $(CXXFLAGS) 2048.cpp screen.cpp
+
+screen.o: screen.cpp screen.h
+		$(CXX) $(CXXFLAGS) screen.cpp
 
 ########################################
 # Clean up
