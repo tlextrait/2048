@@ -72,3 +72,7 @@ void init_curses(){
 void end_curses(){
   endwin();
 }
+
+int getKeyPress(){
+  return getch();
+}

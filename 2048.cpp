@@ -19,21 +19,35 @@
 */
 int main(){
 
-  Screen* sc;
-  sc = new Screen();
+  initscr();
+  clear();
+  cbreak();
+  noecho();
 
   Board* b = new Board;
   b->display();
 
-  int ch = 0;
+  int ch = -1;
 
   while(!b->isGameFinished()){
-    while(!b->isValidMoveKey(ch)) ch = getch();
-    b->doMove(ch);
+
+    printw("Make a move...\n");
+
+    while(!b->isValidMoveKey(ch) && ch!='x') ch = getch();
+
+    // User wants to exit
+    if(ch=='x') break;
+
+    b->doMove(ch);  // do the move
+    ch = -1;        // reset key pressed
+
+    // Refresh display
+    clear();
+    b->display();
   }
 
-  // Clean-up!
-  delete sc;
+  // Clean-up curses
+  endwin();
   
   return 0;
 }

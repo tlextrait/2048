@@ -61,18 +61,29 @@ void Board::addRandomTile(){
   grid[x][y] = possibleRandTiles[randTileIndex];
 }
 
+bool Board::isValidCoordinates(int x, int y){
+  return x >=0 && x < MATRIX_SIZE && y >= 0 && y < MATRIX_SIZE;
+}
+
+/**
+* Returns the value of a cell
+*/
+int Board::getCell(int x, int y){
+  return isValidCoordinates(x, y) ? grid[x][y] : -1;
+}
+
 /**
 * Indicates if the given cell is empty
 */
 bool Board::isCellEmpty(int x, int y){
-  return grid[x][y] <= 0;
+  return !isValidCoordinates(x, y) || grid[x][y] <= 0;
 }
 
 /**
 * Sets the value of given cell
 */
 void Board::setCell(int x, int y, int val){
-  if(x >=0 && x < MATRIX_SIZE && y >= 0 && y < MATRIX_SIZE){
+  if(isValidCoordinates(x, y)){
     grid[x][y] = val;
   }
 }
@@ -81,7 +92,7 @@ void Board::setCell(int x, int y, int val){
 * Sets the given cell as empty
 */
 void Board::setCellEmpty(int x, int y){
-  setCell(x, y, -1);
+  setCell(x, y, 0);
 }
 
 /* ============================================================ */
@@ -147,10 +158,10 @@ void Board::display(){
 
 bool Board::isValidMoveKey(int keyCode){
   return 
-    keyCode == KEY_UP || 
-    keyCode == KEY_DOWN || 
-    keyCode == KEY_RIGHT || 
-    keyCode == KEY_UP || 
+    keyCode == 65 || // up
+    keyCode == 66 || // down
+    keyCode == 67 || // right
+    keyCode == 68 || // left
     keyCode == 'a' || 
     keyCode == 'w' || 
     keyCode == 's' || 
@@ -158,15 +169,18 @@ bool Board::isValidMoveKey(int keyCode){
 }
 
 void Board::doMove(int keyCode){
-  if(keyCode == KEY_UP || keyCode == 'w'){
+
+  if(keyCode == 65 || keyCode == 'w'){
     moveUp();
-  }else if(keyCode == KEY_DOWN || keyCode == 's'){
+  }else if(keyCode == 66 || keyCode == 's'){
     moveDown();
-  }else if(keyCode == KEY_RIGHT || keyCode == 'd'){
+  }else if(keyCode == 67 || keyCode == 'd'){
     moveRight();
-  }else if(keyCode == KEY_LEFT || keyCode == 'a'){
+  }else if(keyCode == 68 || keyCode == 'a'){
     moveLeft();
   }
+
+  if(isValidMoveKey(keyCode)) addRandomTile();
 }
 
 /*
@@ -179,7 +193,21 @@ void Board::doMove(int keyCode){
 */
 
 void Board::moveUp(){
-
+  printw("MOVING UP");
+  // Resolve the move column by column
+  for(int x=0; x<MATRIX_SIZE; x++){
+    for(int y=0; y<MATRIX_SIZE-1; y++){
+      printw(".");
+      if(isCellEmpty(x, y)){
+        // move up cell from below
+        setCell(x, y, getCell(x, y+1));
+      }else{
+        if(getCell(x,y) == getCell(x,y+1)){
+          setCell(x, y, (getCell(x,y) + getCell(x,y+1)));
+        }
+      }
+    }
+  }
 }
 
 void Board::moveRight(){

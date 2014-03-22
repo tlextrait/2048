@@ -25,7 +25,9 @@ private:
   int countPossibleRandTiles;
   // util
   void addRandomTile();
+  bool isValidCoordinates(int x, int y);
   bool isCellEmpty(int x, int y);
+  int getCell(int x, int y);
   void setCell(int x, int y, int val);
   void setCellEmpty(int x, int y);
   // display methods

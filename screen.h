@@ -19,3 +19,5 @@ public:
 
 void init_curses();
 void end_curses();
+
+int getKeyPress();
