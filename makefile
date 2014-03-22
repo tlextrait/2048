@@ -5,6 +5,7 @@ CC=gcc
 CXX=g++
 FLAGS=-c -Wall
 CXXFLAGS=-c -Wall -Wextra -pedantic -Werror
+LIBFLAGS = -lncurses
 ########################################
 
 # Make everything
@@ -14,7 +15,7 @@ all: 2048
 new: clean all
 
 2048: 2048.o
-		$(CXX) 2048.o -o 2048
+		$(CXX) 2048.o -o 2048 $(LIBFLAGS)
 
 2048.o: 2048.cpp 2048.h
 		$(CXX) $(CXXFLAGS) 2048.cpp
