@@ -64,7 +64,6 @@ void init_curses(){
   clear();
   cbreak();
   noecho();
-  getch();
 }
 
 /**

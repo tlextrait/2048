@@ -15,7 +15,7 @@
 #include "board.h"
 
 /**
-* Constructor
+* Board constructor
 */
 Board::Board(){
 
@@ -31,6 +31,36 @@ Board::Board(){
       grid[i][j] = 0;
     }
   }
+
+  // Possible random tiles
+  possibleRandTiles = new int[2];
+  possibleRandTiles[0] = 2;
+  possibleRandTiles[1] = 4;
+  countPossibleRandTiles = 2;
+
+  // Random starting tiles
+  for(int i=0; i<STARTING_TILE_COUNT; i++) addRandomTile();
+}
+
+/**
+* Adds one random tile to the board, in a cell that's available if any is
+*/
+void Board::addRandomTile(){
+  int x = getRand(0, MATRIX_SIZE-1);
+  int y = getRand(0, MATRIX_SIZE-1);
+  while(!isCellEmpty(x, y)){
+    x = getRand(0, MATRIX_SIZE-1);
+    y = getRand(0, MATRIX_SIZE-1);
+  }
+  int randTileIndex = getRand(0, countPossibleRandTiles-1);
+  grid[x][y] = possibleRandTiles[randTileIndex];
+}
+
+/**
+* Indicates if the given cell is empty
+*/
+bool Board::isCellEmpty(int x, int y){
+  return grid[x][y] <= 0;
 }
 
 /**
@@ -52,8 +82,15 @@ void Board::display(){
 }
 
 /**
-* Seeds the random number generator
+* Initializes and seeds the number generator
 */
 void init_rand(){
   srand(time(NULL));
+}
+
+/**
+* Generates a random number between min and max (both inclusive)
+*/
+int getRand(int min, int max){
+  return rand() % (max+1) + min;
 }

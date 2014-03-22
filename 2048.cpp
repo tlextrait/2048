@@ -19,9 +19,6 @@
 */
 int main(){
 
-  // generate secret number between 1 and 10
-  //int iSecret = rand() % 10 + 1;
-
   Screen* sc;
   sc = new Screen();
 
@@ -31,6 +28,8 @@ int main(){
   //printw("Press F1\n");
   //getch();
   //printw("%d\n", CH);
+
+  getch();
 
   delete sc;
   
