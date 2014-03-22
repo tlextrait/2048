@@ -38,9 +38,9 @@ void Board::display(){
     for(int y=0; y<MATRIX_SIZE; y++){
       int val = grid[x][y];
       if(val > 0){
-        printw("[%d]", val);
+        printw("[%4d]", val);
       }else{
-        printw("[ ]");
+        printw("[    ]");
       }
     }
     printw("\n");
@@ -62,8 +62,8 @@ int main(){
   Screen* sc;
   sc = new Screen();
 
-  //Board* b = new Board;
-  //b->display();
+  Board* b = new Board;
+  b->display();
 
   //printw("Press F1\n");
   //getch();
