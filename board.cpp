@@ -42,6 +42,10 @@ Board::Board(){
   for(int i=0; i<STARTING_TILE_COUNT; i++) addRandomTile();
 }
 
+/* ============================================================ */
+/* UTILITY                                                      */
+/* ============================================================ */
+
 /**
 * Adds one random tile to the board, in a cell that's available if any is
 */
@@ -63,23 +67,78 @@ bool Board::isCellEmpty(int x, int y){
   return grid[x][y] <= 0;
 }
 
-/**
-* Displays the board
-*/
-void Board::display(){
+/* ============================================================ */
+/* DISPLAY                                                      */
+/* ============================================================ */
+
+void Board::displayHeaderHR(){
+  printw("=======================================================\n");
+}
+
+void Board::displayHeader(){
+  printw("\n");
+  printw("2048 - Implemented in C++ by Thomas Lextrait\n");
+  displayHeaderHR();
+  printw("\n");
+}
+
+void Board::displayFooter(){
+  displayHeaderHR();
+  printw("Use the arrows or the [W][A][S][D] keys to shift tiles on the board.\n");
+  printw("Press [X] to exit.\n");
+}
+
+void Board::displayBoardHR(){
+  for(int i=0; i<MATRIX_SIZE; i++){
+    printw("+");
+    for(int a=0; a<CELL_SIZE; a++){
+      printw("-");
+    }
+  }
+  printw("+\n");
+}
+
+void Board::displayBoard(){
+  displayBoardHR();
   for(int x=0; x<MATRIX_SIZE; x++){
     for(int y=0; y<MATRIX_SIZE; y++){
       int val = grid[x][y];
       if(val > 0){
-        printw("[%4d]", val);
+        printw("|%4d", val);
       }else{
-        printw("[    ]");
+        printw("|    ");
       }
     }
-    printw("\n");
+    printw("|\n");
+    displayBoardHR();
   }
-  printw("\n");
+  printw("\n"); // end with new line
 }
+
+/**
+* Displays the board
+*/
+void Board::display(){
+  displayHeader();
+  displayBoard();
+  displayFooter();
+}
+
+/* ============================================================ */
+/* MOVES                                                        */
+/* ============================================================ */
+
+
+
+/* ============================================================ */
+/* STATE                                                      */
+/* ============================================================ */
+
+
+
+/* ============================================================ */
+/* MISC                                                         */
+/* ============================================================ */
 
 /**
 * Initializes and seeds the number generator
