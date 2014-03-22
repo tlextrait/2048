@@ -25,12 +25,14 @@ int main(){
   Board* b = new Board;
   b->display();
 
-  //printw("Press F1\n");
-  //getch();
-  //printw("%d\n", CH);
+  int ch = 0;
 
-  getch();
+  while(!b->isGameFinished()){
+    while(!b->isValidMoveKey(ch)) ch = getch();
+    b->doMove(ch);
+  }
 
+  // Clean-up!
   delete sc;
   
   return 0;

@@ -18,13 +18,16 @@ BOARD OBJECT
 */
 class Board{
 private:
-  int goal;       // goal number (default: 2048)
+  int goal;     // goal number (default: 2048)
+  int maxTile; 	// lagest tile on the board now
   int grid[MATRIX_SIZE][MATRIX_SIZE];
   int* possibleRandTiles;
   int countPossibleRandTiles;
   // util
   void addRandomTile();
   bool isCellEmpty(int x, int y);
+  void setCell(int x, int y, int val);
+  void setCellEmpty(int x, int y);
   // display methods
   void displayHeaderHR();
   void displayHeader();
@@ -35,12 +38,16 @@ public:
   Board();
   void display();
   // moves
+  bool isValidMoveKey(int keyCode);
+  void doMove(int keyCode);
   void moveUp();
   void moveRight();
   void moveDown();
   void moveLeft();
   // state
+  bool isGameFinished();
   bool isGameOver();
+  bool isGameWon();
 };
 
 void init_rand();

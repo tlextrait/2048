@@ -24,6 +24,7 @@ Board::Board(){
 
   // Default values
   goal = DEFAULT_GOAL;
+  maxTile = 0;
 
   // Initialize grid
   for(int i=0; i<MATRIX_SIZE; i++){
@@ -65,6 +66,22 @@ void Board::addRandomTile(){
 */
 bool Board::isCellEmpty(int x, int y){
   return grid[x][y] <= 0;
+}
+
+/**
+* Sets the value of given cell
+*/
+void Board::setCell(int x, int y, int val){
+  if(x >=0 && x < MATRIX_SIZE && y >= 0 && y < MATRIX_SIZE){
+    grid[x][y] = val;
+  }
+}
+
+/**
+* Sets the given cell as empty
+*/
+void Board::setCellEmpty(int x, int y){
+  setCell(x, y, -1);
 }
 
 /* ============================================================ */
@@ -128,13 +145,73 @@ void Board::display(){
 /* MOVES                                                        */
 /* ============================================================ */
 
+bool Board::isValidMoveKey(int keyCode){
+  return 
+    keyCode == KEY_UP || 
+    keyCode == KEY_DOWN || 
+    keyCode == KEY_RIGHT || 
+    keyCode == KEY_UP || 
+    keyCode == 'a' || 
+    keyCode == 'w' || 
+    keyCode == 's' || 
+    keyCode == 'd';
+}
 
+void Board::doMove(int keyCode){
+  if(keyCode == KEY_UP || keyCode == 'w'){
+    moveUp();
+  }else if(keyCode == KEY_DOWN || keyCode == 's'){
+    moveDown();
+  }else if(keyCode == KEY_RIGHT || keyCode == 'd'){
+    moveRight();
+  }else if(keyCode == KEY_LEFT || keyCode == 'a'){
+    moveLeft();
+  }
+}
+
+/*
+
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+
+*/
+
+void Board::moveUp(){
+
+}
+
+void Board::moveRight(){
+
+}
+
+void Board::moveDown(){
+
+}
+
+void Board::moveLeft(){
+
+}
 
 /* ============================================================ */
-/* STATE                                                      */
+/* STATE                                                        */
 /* ============================================================ */
 
+bool Board::isGameFinished(){
+  return isGameWon() || isGameOver();
+}
 
+bool Board::isGameWon(){
+  return maxTile >= goal;
+}
+
+bool Board::isGameOver(){
+  /*
+  @TODO
+  */
+  return false;
+}
 
 /* ============================================================ */
 /* MISC                                                         */
