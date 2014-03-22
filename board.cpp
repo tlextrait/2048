@@ -19,8 +19,11 @@
 */
 Board::Board(){
 
+  // Seed random numbers
+  init_rand();
+
   // Default values
-  goal = 2048;
+  goal = DEFAULT_GOAL;
 
   // Initialize grid
   for(int i=0; i<MATRIX_SIZE; i++){
@@ -48,3 +51,9 @@ void Board::display(){
   printw("\n");
 }
 
+/**
+* Seeds the random number generator
+*/
+void init_rand(){
+  srand(time(NULL));
+}

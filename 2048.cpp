@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>   // for random numbers
 #include <curses.h> // for getch(), keyboard events
 
 #include "screen.h"
@@ -19,9 +18,6 @@
 * Main program
 */
 int main(){
-
-  // initialize random seed
-  srand(time(NULL));
 
   // generate secret number between 1 and 10
   //int iSecret = rand() % 10 + 1;

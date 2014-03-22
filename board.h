@@ -6,6 +6,7 @@
  */
 
 #define MATRIX_SIZE 4
+#define DEFAULT_GOAL 2048
 
 class Board{
 private:
@@ -15,3 +16,5 @@ public:
   Board();
   void display();
 };
+
+void init_rand();
