@@ -143,8 +143,8 @@ void Board::displayBoardHR(){
 
 void Board::displayBoard(){
   displayBoardHR();
-  for(int x=0; x<MATRIX_SIZE; x++){
-    for(int y=0; y<MATRIX_SIZE; y++){
+  for(int y=0; y<MATRIX_SIZE; y++){
+    for(int x=0; x<MATRIX_SIZE; x++){
       int val = grid[x][y];
       if(val > 0){
         printw("|%4d", val);
@@ -220,7 +220,11 @@ void Board::moveUp(){
       int cy = y;
       while(isCellEmpty(x, cy-1) && cy > 0) cy--;
       if(cy != y){
-        setCell(x, cy, getCell(x, y));
+        if(cy > 0 && !isCellEmpty(x, cy-1) && getCell(x,y)==getCell(x,cy-1)){
+          setCell(x, cy-1, getCell(x, y)+getCell(x, cy-1));
+        }else{
+          setCell(x, cy, getCell(x, y));
+        }
         setCellEmpty(x, y);
       }
     }
