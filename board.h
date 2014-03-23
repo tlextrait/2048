@@ -8,7 +8,7 @@
 /*
 GAME RULES
 */
-#define MATRIX_SIZE 4
+#define MATRIX_SIZE 6
 #define DEFAULT_GOAL 2048
 #define STARTING_TILE_COUNT 2
 #define CELL_SIZE 4
@@ -22,6 +22,7 @@ private:
   int maxTile; 	// lagest tile on the board now
   int grid[MATRIX_SIZE][MATRIX_SIZE];
   int* possibleRandTiles;
+  int* valueColors;
   int countPossibleRandTiles;
   // util
   void addRandomTile();

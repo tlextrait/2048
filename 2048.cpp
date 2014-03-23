@@ -19,10 +19,11 @@
 int main(){
 
   // Initialize curses
-  initscr();
-  clear();
-  cbreak();
-  noecho();
+  initscr();  // init curses
+  clear();    // clear screen
+  cbreak();   // parse one char at a time
+  noecho();   // don't print the input
+  if(has_colors()) start_color(); // colored output
 
   // Initialize board
   Board* b = new Board;

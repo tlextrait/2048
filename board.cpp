@@ -43,8 +43,30 @@ void Board::init(){
   possibleRandTiles[1] = 4;
   countPossibleRandTiles = 2;
 
+  // Value color mappings
+  valueColors = new int[5000];
+  for(int i=0; i<5000; i++) valueColors[i] = -1;
+  if(has_colors()){
+    valueColors[64] = 1;
+    valueColors[128] = 2;
+    valueColors[256] = 3;
+    valueColors[512] = 4;
+    valueColors[1024] = 5;
+    valueColors[2048] = 6;
+  }
+  
   // Random starting tiles
   for(int i=0; i<STARTING_TILE_COUNT; i++) addRandomTile();
+
+  // Colors
+  if(has_colors()){
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_BLUE, COLOR_BLACK);
+    init_pair(3, COLOR_GREEN, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(6, COLOR_CYAN, COLOR_BLACK);
+  }
 }
 
 /* ============================================================ */
@@ -152,7 +174,10 @@ void Board::displayBoard(){
     for(int x=0; x<MATRIX_SIZE; x++){
       int val = grid[x][y];
       if(val > 0){
-        printw("|%4d", val);
+        printw("|");
+        if(valueColors[val] >= 0) attron(COLOR_PAIR(valueColors[val]));
+        printw("%4d", val);
+        if(valueColors[val] >= 0) attroff(COLOR_PAIR(valueColors[val]));
       }else{
         printw("|    ");
       }
