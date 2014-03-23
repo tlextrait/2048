@@ -36,16 +36,8 @@ int main(){
 
     key = getch();
 
-    printw("1");
-
     // Wait for user to press valid key or 'x'
-    while(!b->isValidMoveKey(key) && key!='x'){
-      printw("waiting...");
-      key = getch();
-      printw("pressed %d\n", key);
-    }
-
-    printw("res\n");
+    while(!b->isValidMoveKey(key) && key!='x') key = getch();
 
     // User wants to exit
     if(key=='x') break;
