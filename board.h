@@ -39,6 +39,7 @@ private:
   void displayBoard();
 public:
   Board();
+  void init();
   void display();
   // moves
   bool isValidMoveKey(int keyCode);

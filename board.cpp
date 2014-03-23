@@ -22,6 +22,11 @@ Board::Board(){
   // Seed random numbers
   init_rand();
 
+  // Init the board
+  init();  
+}
+
+void Board::init(){
   // Default values
   goal = DEFAULT_GOAL;
   maxTile = 0;
@@ -128,7 +133,7 @@ void Board::displayHeader(){
 void Board::displayFooter(){
   displayHeaderHR();
   printw("Use the arrows or the [W][A][S][D] keys to shift tiles on the board.\n");
-  printw("Press [X] to exit.\n");
+  printw("Press [X] to exit, [R] to restart the game.\n");
 }
 
 void Board::displayBoardHR(){
@@ -215,13 +220,50 @@ bool Board::moveUp(){
       int cy = y;
       while(isCellEmpty(x, cy-1) && cy > 0) cy--;
 
-      if(cy > 0 && !isCellEmpty(x, cy-1) && getCell(x,y)==getCell(x,cy-1)){
-        setCell(x, cy-1, getCell(x, y)+getCell(x, cy-1));
-        setCellEmpty(x, y);
+      if(
+          cy > 0 && 
+          !isCellEmpty(x,cy-1) && 
+          getCell(x,y)==getCell(x,cy-1)
+      ){
+        setCell(x, cy-1, getCell(x,y)+getCell(x,cy-1));
+        setCellEmpty(x,y);
         moved = true;
       }else if(cy != y){
-        setCell(x, cy, getCell(x, y));
-        setCellEmpty(x, y);
+        setCell(x, cy, getCell(x,y));
+        setCellEmpty(x,y);
+        moved = true;
+      }
+    }
+  }
+
+  return moved;
+}
+
+/**
+* Moves tiles down, indicates if a move was made
+*/
+bool Board::moveDown(){
+  int moved = false;
+
+  // Resolve the move column by column
+  for(int x=0; x<MATRIX_SIZE; x++){
+    for(int y=MATRIX_SIZE-2; y>=0; y--){
+
+      // as long as the cell above is empty, move it up
+      int cy = y;
+      while(isCellEmpty(x, cy+1) && cy < MATRIX_SIZE-1) cy++;
+
+      if(
+          cy < MATRIX_SIZE-1 && 
+          !isCellEmpty(x,cy+1) && 
+          getCell(x,y)==getCell(x,cy+1)
+      ){
+        setCell(x, cy+1, getCell(x,y)+getCell(x,cy+1));
+        setCellEmpty(x,y);
+        moved = true;
+      }else if(cy != y){
+        setCell(x, cy, getCell(x,y));
+        setCellEmpty(x,y);
         moved = true;
       }
     }
@@ -234,21 +276,66 @@ bool Board::moveUp(){
 * Moves tiles right, indicates if a move was made
 */
 bool Board::moveRight(){
-  return false;
-}
+  int moved = false;
 
-/**
-* Moves tiles down, indicates if a move was made
-*/
-bool Board::moveDown(){
-  return false;
+  // Resolve the move row by row
+  for(int y=0; y<MATRIX_SIZE; y++){
+    for(int x=MATRIX_SIZE-2; x>=0; x--){
+
+      // as long as the cell above is empty, move it up
+      int cx = x;
+      while(isCellEmpty(cx+1, y) && cx < MATRIX_SIZE-1) cx++;
+
+      if(
+          cx < MATRIX_SIZE-1 && 
+          !isCellEmpty(cx+1,y) && 
+          getCell(x,y)==getCell(cx+1,y)
+      ){
+        setCell(cx+1, y, getCell(x,y)+getCell(cx+1,y));
+        setCellEmpty(x,y);
+        moved = true;
+      }else if(cx != x){
+        setCell(cx, y, getCell(x,y));
+        setCellEmpty(x,y);
+        moved = true;
+      }
+    }
+  }
+
+  return moved;
 }
 
 /**
 * Moves tiles left, indicates if a move was made
 */
 bool Board::moveLeft(){
-  return false;
+  int moved = false;
+
+  // Resolve the move row by row
+  for(int y=0; y<MATRIX_SIZE; y++){
+    for(int x=1; x<MATRIX_SIZE; x++){
+
+      // as long as the cell above is empty, move it up
+      int cx = x;
+      while(isCellEmpty(cx-1, y) && cx > 0) cx--;
+
+      if(
+          cx > 0 && 
+          !isCellEmpty(cx-1,y) && 
+          getCell(x,y)==getCell(cx-1,y)
+      ){
+        setCell(cx-1, y, getCell(x,y)+getCell(cx-1,y));
+        setCellEmpty(x,y);
+        moved = true;
+      }else if(cx != x){
+        setCell(cx, y, getCell(x,y));
+        setCellEmpty(x,y);
+        moved = true;
+      }
+    }
+  }
+
+  return moved;
 }
 
 /* ============================================================ */
