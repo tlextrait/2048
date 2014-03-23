@@ -234,21 +234,21 @@ bool Board::moveUp(){
 * Moves tiles right, indicates if a move was made
 */
 bool Board::moveRight(){
-
+  return false;
 }
 
 /**
 * Moves tiles down, indicates if a move was made
 */
 bool Board::moveDown(){
-
+  return false;
 }
 
 /**
 * Moves tiles left, indicates if a move was made
 */
 bool Board::moveLeft(){
-
+  return false;
 }
 
 /* ============================================================ */
