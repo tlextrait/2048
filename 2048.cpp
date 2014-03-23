@@ -19,27 +19,39 @@
 */
 int main(){
 
+  // Initialize curses
   initscr();
   clear();
   cbreak();
   noecho();
 
+  // Initialize board
   Board* b = new Board;
   b->display();
 
-  int ch = -1;
+  // Key pressed
+  int key = -1;
 
   while(!b->isGameFinished()){
 
-    printw("Make a move...\n");
+    key = getch();
 
-    while(!b->isValidMoveKey(ch) && ch!='x') ch = getch();
+    printw("1");
+
+    // Wait for user to press valid key or 'x'
+    while(!b->isValidMoveKey(key) && key!='x'){
+      printw("waiting...");
+      key = getch();
+      printw("pressed %d\n", key);
+    }
+
+    printw("res\n");
 
     // User wants to exit
-    if(ch=='x') break;
+    if(key=='x') break;
 
-    b->doMove(ch);  // do the move
-    ch = -1;        // reset key pressed
+    b->doMove(key);  // do the move
+    key = -1;        // reset key pressed
 
     // Refresh display
     clear();

@@ -51,14 +51,16 @@ Board::Board(){
 * Adds one random tile to the board, in a cell that's available if any is
 */
 void Board::addRandomTile(){
-  int x = getRand(0, MATRIX_SIZE-1);
-  int y = getRand(0, MATRIX_SIZE-1);
-  while(!isCellEmpty(x, y)){
-    x = getRand(0, MATRIX_SIZE-1);
-    y = getRand(0, MATRIX_SIZE-1);
+  if(!isFull()){
+    int x = getRand(0, MATRIX_SIZE-1);
+    int y = getRand(0, MATRIX_SIZE-1);
+    while(!isCellEmpty(x, y)){
+      x = getRand(0, MATRIX_SIZE-1);
+      y = getRand(0, MATRIX_SIZE-1);
+    }
+    int randTileIndex = getRand(0, countPossibleRandTiles-1);
+    grid[x][y] = possibleRandTiles[randTileIndex];
   }
-  int randTileIndex = getRand(0, countPossibleRandTiles-1);
-  grid[x][y] = possibleRandTiles[randTileIndex];
 }
 
 bool Board::isValidCoordinates(int x, int y){
@@ -93,6 +95,19 @@ void Board::setCell(int x, int y, int val){
 */
 void Board::setCellEmpty(int x, int y){
   setCell(x, y, 0);
+}
+
+/**
+* Indicates if the board is full
+*/
+bool Board::isFull(){
+  int full = 0;
+  for(int x=0; x<MATRIX_SIZE; x++){
+    for(int y=0; y<MATRIX_SIZE; y++){
+      full += isCellEmpty(x, y) ? 1 : 0;
+    }
+  }
+  return full >= MATRIX_SIZE*MATRIX_SIZE;
 }
 
 /* ============================================================ */
@@ -170,41 +185,43 @@ bool Board::isValidMoveKey(int keyCode){
 
 void Board::doMove(int keyCode){
 
-  if(keyCode == 65 || keyCode == 'w'){
-    moveUp();
-  }else if(keyCode == 66 || keyCode == 's'){
-    moveDown();
-  }else if(keyCode == 67 || keyCode == 'd'){
-    moveRight();
-  }else if(keyCode == 68 || keyCode == 'a'){
-    moveLeft();
-  }
+  if(isValidMoveKey(keyCode)){
 
-  if(isValidMoveKey(keyCode)) addRandomTile();
+    if(keyCode == 65 || keyCode == 'w'){
+      moveUp();
+    }else if(keyCode == 66 || keyCode == 's'){
+      moveDown();
+    }else if(keyCode == 67 || keyCode == 'd'){
+      moveRight();
+    }else if(keyCode == 68 || keyCode == 'a'){
+      moveLeft();
+    }
+
+    // Add a random tile
+    addRandomTile();
+  }
 }
 
 /*
 
 0 0 0 0
+1 1 1 1
 0 0 0 0
-0 0 0 0
-0 0 0 0
+2 2 2 2
 
 */
 
 void Board::moveUp(){
-  printw("MOVING UP");
   // Resolve the move column by column
   for(int x=0; x<MATRIX_SIZE; x++){
-    for(int y=0; y<MATRIX_SIZE-1; y++){
-      printw(".");
-      if(isCellEmpty(x, y)){
-        // move up cell from below
-        setCell(x, y, getCell(x, y+1));
-      }else{
-        if(getCell(x,y) == getCell(x,y+1)){
-          setCell(x, y, (getCell(x,y) + getCell(x,y+1)));
-        }
+    for(int y=1; y<MATRIX_SIZE; y++){
+
+      // as long as the cell above is empty, move it up
+      int cy = y;
+      while(isCellEmpty(x, cy-1)) cy--;
+      if(cy != y){
+        setCell(x, cy, getCell(x, y));
+        setCellEmpty(x, y);
       }
     }
   }

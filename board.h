@@ -30,6 +30,7 @@ private:
   int getCell(int x, int y);
   void setCell(int x, int y, int val);
   void setCellEmpty(int x, int y);
+  bool isFull();
   // display methods
   void displayHeaderHR();
   void displayHeader();
