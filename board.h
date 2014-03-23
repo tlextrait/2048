@@ -8,7 +8,7 @@
 /*
 GAME RULES
 */
-#define MATRIX_SIZE 6
+#define MATRIX_SIZE 4
 #define DEFAULT_GOAL 2048
 #define STARTING_TILE_COUNT 2
 #define CELL_SIZE 4
