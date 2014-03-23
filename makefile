@@ -1,10 +1,10 @@
 ########################################
 # Thomas Lextrait, thomas.lextrait@gmail.com
 ########################################
-CC=gcc
-CXX=g++
-FLAGS=-c -Wall
-CXXFLAGS=-c -Wall -Wextra -pedantic -Werror
+CC = gcc
+CXX = g++
+FLAGS = -c -Wall
+CXXFLAGS = -c -Wall -Wextra -pedantic -Werror
 LIBFLAGS = -lncurses
 ########################################
 
