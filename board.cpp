@@ -143,6 +143,7 @@ void Board::displayBoardHR(){
 
 void Board::displayBoard(){
   displayBoardHR();
+  // Display it row by row (for this y, display all x...)
   for(int y=0; y<MATRIX_SIZE; y++){
     for(int x=0; x<MATRIX_SIZE; x++){
       int val = grid[x][y];
