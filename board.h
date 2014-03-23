@@ -43,10 +43,10 @@ public:
   // moves
   bool isValidMoveKey(int keyCode);
   void doMove(int keyCode);
-  void moveUp();
-  void moveRight();
-  void moveDown();
-  void moveLeft();
+  bool moveUp();
+  bool moveRight();
+  bool moveDown();
+  bool moveLeft();
   // state
   bool isGameFinished();
   bool isGameOver();

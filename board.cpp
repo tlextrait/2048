@@ -189,30 +189,24 @@ void Board::doMove(int keyCode){
   if(isValidMoveKey(keyCode)){
 
     if(keyCode == 65 || keyCode == 'w'){
-      moveUp();
+      if(moveUp()) addRandomTile();
     }else if(keyCode == 66 || keyCode == 's'){
-      moveDown();
+      if(moveDown()) addRandomTile();
     }else if(keyCode == 67 || keyCode == 'd'){
-      moveRight();
+      if(moveRight()) addRandomTile();
     }else if(keyCode == 68 || keyCode == 'a'){
-      moveLeft();
+      if(moveLeft()) addRandomTile();
     }
-
-    // Add a random tile
-    addRandomTile();
   }
 }
 
-/*
-
-0 0 0 0
-1 1 1 1
-0 0 0 0
-2 2 2 2
-
+/**
+* Moves tiles up, indicates if a move was made
 */
+bool Board::moveUp(){
 
-void Board::moveUp(){
+  int moved = false;
+
   // Resolve the move column by column
   for(int x=0; x<MATRIX_SIZE; x++){
     for(int y=1; y<MATRIX_SIZE; y++){
@@ -220,27 +214,40 @@ void Board::moveUp(){
       // as long as the cell above is empty, move it up
       int cy = y;
       while(isCellEmpty(x, cy-1) && cy > 0) cy--;
-      if(cy != y){
-        if(cy > 0 && !isCellEmpty(x, cy-1) && getCell(x,y)==getCell(x,cy-1)){
-          setCell(x, cy-1, getCell(x, y)+getCell(x, cy-1));
-        }else{
-          setCell(x, cy, getCell(x, y));
-        }
+
+      if(cy > 0 && !isCellEmpty(x, cy-1) && getCell(x,y)==getCell(x,cy-1)){
+        setCell(x, cy-1, getCell(x, y)+getCell(x, cy-1));
         setCellEmpty(x, y);
+        moved = true;
+      }else if(cy != y){
+        setCell(x, cy, getCell(x, y));
+        setCellEmpty(x, y);
+        moved = true;
       }
     }
   }
+
+  return moved;
 }
 
-void Board::moveRight(){
+/**
+* Moves tiles right, indicates if a move was made
+*/
+bool Board::moveRight(){
 
 }
 
-void Board::moveDown(){
+/**
+* Moves tiles down, indicates if a move was made
+*/
+bool Board::moveDown(){
 
 }
 
-void Board::moveLeft(){
+/**
+* Moves tiles left, indicates if a move was made
+*/
+bool Board::moveLeft(){
 
 }
 
