@@ -10,7 +10,6 @@
 #include <string.h>
 #include <curses.h> // for getch(), keyboard events
 
-#include "screen.h"
 #include "board.h"
 #include "2048.h"
 

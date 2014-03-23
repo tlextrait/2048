@@ -11,7 +11,6 @@
 #include <time.h>   // for random numbers
 #include <curses.h> // for getch(), keyboard events
 
-#include "screen.h"
 #include "board.h"
 
 /**
