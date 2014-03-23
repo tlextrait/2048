@@ -23,7 +23,7 @@ int main(){
   clear();    // clear screen
   cbreak();   // parse one char at a time
   noecho();   // don't print the input
-  if(has_colors()) start_color(); // colored output
+  if(has_colors()) start_color(); // enable colored output if available
 
   // Initialize board
   Board* b = new Board;
