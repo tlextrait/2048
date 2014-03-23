@@ -104,7 +104,7 @@ bool Board::isFull(){
   int full = 0;
   for(int x=0; x<MATRIX_SIZE; x++){
     for(int y=0; y<MATRIX_SIZE; y++){
-      full += isCellEmpty(x, y) ? 1 : 0;
+      full += !isCellEmpty(x, y) ? 1 : 0;
     }
   }
   return full >= MATRIX_SIZE*MATRIX_SIZE;
@@ -218,7 +218,7 @@ void Board::moveUp(){
 
       // as long as the cell above is empty, move it up
       int cy = y;
-      while(isCellEmpty(x, cy-1)) cy--;
+      while(isCellEmpty(x, cy-1) && cy > 0) cy--;
       if(cy != y){
         setCell(x, cy, getCell(x, y));
         setCellEmpty(x, y);
