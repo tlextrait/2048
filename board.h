@@ -19,6 +19,7 @@ BOARD OBJECT
 class Board{
 private:
   int goal;     // goal number (default: 2048)
+  int score;	// player's score
   int maxTile; 	// lagest tile on the board now
   int grid[MATRIX_SIZE][MATRIX_SIZE];
   int* possibleRandTiles;

@@ -28,6 +28,7 @@ Board::Board(){
 void Board::init(){
   // Default values
   goal = DEFAULT_GOAL;
+  score = 0;
   maxTile = 0;
 
   // Initialize grid
@@ -54,7 +55,7 @@ void Board::init(){
     valueColors[1024] = 5;
     valueColors[2048] = 6;
   }
-  
+
   // Random starting tiles
   for(int i=0; i<STARTING_TILE_COUNT; i++) addRandomTile();
 
@@ -168,7 +169,13 @@ void Board::displayBoardHR(){
 }
 
 void Board::displayBoard(){
+
+  // Score
+  printw("Score: %d\n\n", score);
+
+  // Board frame
   displayBoardHR();
+
   // Display it row by row (for this y, display all x...)
   for(int y=0; y<MATRIX_SIZE; y++){
     for(int x=0; x<MATRIX_SIZE; x++){
@@ -249,8 +256,10 @@ bool Board::moveUp(){
           !isCellEmpty(x,cy-1) && 
           getCell(x,y)==getCell(x,cy-1)
       ){
-        setCell(x, cy-1, getCell(x,y)+getCell(x,cy-1));
+        int sum = getCell(x,y)+getCell(x,cy-1);
+        setCell(x, cy-1, sum);
         setCellEmpty(x,y);
+        score += sum;
         moved = true;
       }else if(cy != y){
         setCell(x, cy, getCell(x,y));
@@ -282,8 +291,10 @@ bool Board::moveDown(){
           !isCellEmpty(x,cy+1) && 
           getCell(x,y)==getCell(x,cy+1)
       ){
-        setCell(x, cy+1, getCell(x,y)+getCell(x,cy+1));
+        int sum = getCell(x,y)+getCell(x,cy+1);
+        setCell(x, cy+1, sum);
         setCellEmpty(x,y);
+        score += sum;
         moved = true;
       }else if(cy != y){
         setCell(x, cy, getCell(x,y));
@@ -315,8 +326,10 @@ bool Board::moveRight(){
           !isCellEmpty(cx+1,y) && 
           getCell(x,y)==getCell(cx+1,y)
       ){
-        setCell(cx+1, y, getCell(x,y)+getCell(cx+1,y));
+        int sum = getCell(x,y)+getCell(cx+1,y);
+        setCell(cx+1, y, sum);
         setCellEmpty(x,y);
+        score += sum;
         moved = true;
       }else if(cx != x){
         setCell(cx, y, getCell(x,y));
@@ -348,8 +361,10 @@ bool Board::moveLeft(){
           !isCellEmpty(cx-1,y) && 
           getCell(x,y)==getCell(cx-1,y)
       ){
-        setCell(cx-1, y, getCell(x,y)+getCell(cx-1,y));
+        int sum = getCell(x,y)+getCell(cx-1,y);
+        setCell(cx-1, y, sum);
         setCellEmpty(x,y);
+        score += sum;
         moved = true;
       }else if(cx != x){
         setCell(cx, y, getCell(x,y));
